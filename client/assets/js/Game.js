@@ -76,7 +76,7 @@ SideScroller.Game.prototype = {
 
     this.player.body.velocity.x = 0;
         
-    var swipeCoordX, swipeCoordY, swipeCoordX2, swipeCoordY2, swipeMinDistance = 10;
+    var swipeCoordX, swipeCoordY, swipeCoordX2, swipeCoordY2, swipeMinDistance = 100;
     this.game.input.onDown.add(function(pointer) {
       swipeCoordX = pointer.clientX;
       swipeCoordY = pointer.clientY;
@@ -191,7 +191,7 @@ SideScroller.Game.prototype = {
     //when the ground is a sprite, we need to test for "touching" instead of "blocked"
     if (this.player.body.touching.down) {
       var that = this;
-      this.player.body.velocity.y -= this.playerData.jump;
+      this.player.body.velocity.y = parseInt('-' + this.playerData.jump);
       if (this.playerInFront) {
         setTimeout(function(){ that.playerInFront = false; }, this.playerData.jump/4);
         setTimeout(function(){
@@ -212,13 +212,13 @@ SideScroller.Game.prototype = {
   playerStrafeR: function() {
     //when the ground is a sprite, we need to test for "touching" instead of "blocked"
     if (this.player.body.touching.down) {
-      this.player.body.velocity.x += this.playerData.move;
+      this.player.body.velocity.x = this.playerData.move;
     }
   },
   playerStrafeL: function() {
     //when the ground is a sprite, we need to test for "touching" instead of "blocked"
     if (this.player.body.touching.down) {
-      this.player.body.velocity.x -= this.playerData.move;
+      this.player.body.velocity.x = parseInt('-' + this.playerData.move);
     }
   },
   playerHit: function(player, obstacle) {
