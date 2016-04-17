@@ -1,0 +1,23 @@
+CACHE MANIFEST
+# v0.0.1  //change this value to force a browser update
+
+CACHE:
+index.html
+assets/css/style.css
+assets/js/global.js
+assets/js/phaser.min.js
+assets/js/Boot.js
+assets/js/Preload.js
+assets/js/Game.js
+assets/js/main.js
+assets/images/mouse.png
+assets/images/bun.png
+assets/images/cat.png
+assets/images/fox.png
+assets/images/car.png
+assets/images/grass.png
+assets/images/dirt.png
+
+
+NETWORK:
+*

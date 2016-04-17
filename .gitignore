@@ -1,0 +1,7 @@
+.DS_Store
+.project
+.idea
+nbproject
+.settings
+node_modules
+logs

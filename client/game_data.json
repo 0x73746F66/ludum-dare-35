@@ -1,0 +1,41 @@
+{
+  "player": "mouse",
+  "mouse": {
+    "gravity": 1000,
+    "multiplier": 1,
+    "jump": 350,
+    "move": 75,
+    "avoids": []
+  },
+  "bun": {
+    "gravity": 3000,
+    "multiplier": 2,
+    "jump": 800,
+    "move": 120,
+    "avoids": ["cat"]
+  },
+  "roo": {
+    "multiplier": 3,
+    "jump": 550,
+    "move": 110,
+    "avoids": ["cat","fox"]
+  },
+  "obstacles":[
+    "cat","fox","fox","car","fox","cat","fox","car","fox","fox","cat","fox"
+  ],
+  "cat":{
+    "velocity": 30,
+    "pos": 80,
+    "points": 2
+  },
+  "fox":{
+    "velocity": 80,
+    "pos": 100,
+    "points": 1
+  },
+  "car":{
+    "velocity": 250,
+    "pos": 70,
+    "points": 5
+  }
+}

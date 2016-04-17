@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "name": "Ludum Dare 35 - Christopher Langton",
+  "launch_path": "/index.html",
+  "description": "Ludum Dare Game Jam by Chris Langton.",
+  "icons": {
+//    "60": "/img/touch/touch-icon-60x60.png",
+//    "128": "/img/touch/touch-icon-128x128.png"
+  },
+  "developer": {
+    "name": "Chris Langton",
+    "url": "https://chrisdlangton.ghost.io/"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "en",
+  "permissions": {
+  },
+  "locales": {
+    "en": {
+      "name": "Ludum Dare 35 - Christopher Langton",
+      "description": "Ludum Dare Game Jam by Chris Langton.",
+    }
+  }
+}
