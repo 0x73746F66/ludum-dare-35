@@ -75,27 +75,32 @@ SideScroller.Game.prototype = {
     this.cars.filter(function(v) { return v.body.x < 0; }).callAll('destroy');
 
     this.player.body.velocity.x = 0;
-    //take the appropriate action for swiping up or pressing up arrow on keyboard
-    //we don't wait until the swipe is finished (this.swipe.isUp),
-    //  because of latency problems (it takes too long to jump before hitting a flea)
-    if (this.swipe.isDown && (this.swipe.positionDown.y > this.swipe.position.y)) {
+        
+    var swipeCoordX, swipeCoordY, swipeCoordX2, swipeCoordY2, swipeMinDistance = 10;
+    this.game.input.onDown.add(function(pointer) {
+      swipeCoordX = pointer.clientX;
+      swipeCoordY = pointer.clientY;
+    }, this);
+    var that = this;
+    this.game.input.onUp.add(function(pointer) {
+      swipeCoordX2 = pointer.clientX;
+      swipeCoordY2 = pointer.clientY;
+      if (swipeCoordX2 < swipeCoordX - swipeMinDistance) {
+        that.playerStrafeL();
+      } else if (swipeCoordX2 > swipeCoordX + swipeMinDistance) {
+        that.playerStrafeR();
+      } else if (swipeCoordY2 < swipeCoordY - swipeMinDistance) {
+        that.playerJump();
+      } else if (swipeCoordY2 > swipeCoordY + swipeMinDistance) {}
+    }, this);
+    
+    if (this.cursors.up.isDown) {
       this.playerJump();
     }
-    else if (this.cursors.up.isDown) {
-      this.playerJump();
-    }
-    
-    if (this.swipe.isDown && (this.swipe.positionDown.x > this.swipe.position.x)) {
+    if (this.cursors.right.isDown) {
       this.playerStrafeR();
-    }
-    else if (this.cursors.right.isDown) {
-      this.playerStrafeR();
-    }
-    
-    if (this.swipe.isDown && (this.swipe.positionDown.x < this.swipe.position.x)) {
-      this.playerStrafeL();
-    }
-    else if (this.cursors.left.isDown) {
+    }    
+    if (this.cursors.left.isDown) {
       this.playerStrafeL();
     }
     
