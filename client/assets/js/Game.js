@@ -88,9 +88,9 @@ SideScroller.Game.prototype = {
       if (swipeCoordX2 < swipeCoordX - swipeMinDistance) {
         that.playerStrafeL();
       } else if (swipeCoordX2 > swipeCoordX + swipeMinDistance) {
-        that.playerStrafeR();
+        that.playerStrafeR(true);
       } else if (swipeCoordY2 < swipeCoordY - swipeMinDistance) {
-        that.playerJump();
+        that.playerJump(true);
       } else if (swipeCoordY2 > swipeCoordY + swipeMinDistance) {}
     }, this);
     
@@ -209,16 +209,30 @@ SideScroller.Game.prototype = {
       }
     }
   },
-  playerStrafeR: function() {
-    //when the ground is a sprite, we need to test for "touching" instead of "blocked"
-    if (this.player.body.touching.down) {
-      this.player.body.velocity.x = this.playerData.move;
-    }
+  playerStrafeR: function(isTouch) {
+    if (isTouch) {
+      //when the ground is a sprite, we need to test for "touching" instead of "blocked"
+      if (this.player.body.touching.down) {
+        this.player.body.velocity.x += this.playerData.move*2;
+      }
+    } else {
+      //when the ground is a sprite, we need to test for "touching" instead of "blocked"
+      if (this.player.body.touching.down) {
+        this.player.body.velocity.x = this.playerData.move;
+      }
+    } 
   },
-  playerStrafeL: function() {
-    //when the ground is a sprite, we need to test for "touching" instead of "blocked"
-    if (this.player.body.touching.down) {
-      this.player.body.velocity.x = parseInt('-' + this.playerData.move);
+  playerStrafeL: function(isTouch) {
+    if (isTouch) {
+      //when the ground is a sprite, we need to test for "touching" instead of "blocked"
+      if (this.player.body.touching.down) {
+        this.player.body.velocity.x -= this.playerData.move*2;
+      }
+    } else {
+      //when the ground is a sprite, we need to test for "touching" instead of "blocked"
+      if (this.player.body.touching.down) {
+        this.player.body.velocity.x = parseInt('-' + this.playerData.move);
+      }
     }
   },
   playerHit: function(player, obstacle) {
