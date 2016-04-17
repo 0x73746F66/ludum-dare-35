@@ -213,7 +213,7 @@ SideScroller.Game.prototype = {
     if (isTouch) {
       //when the ground is a sprite, we need to test for "touching" instead of "blocked"
       if (this.player.body.touching.down) {
-        this.player.body.velocity.x += this.playerData.move*2;
+        this.game.physics.arcade.accelerateToXY(this.player, this.player.x, this.playerData.move, 0, 0)
       }
     } else {
       //when the ground is a sprite, we need to test for "touching" instead of "blocked"
@@ -226,7 +226,7 @@ SideScroller.Game.prototype = {
     if (isTouch) {
       //when the ground is a sprite, we need to test for "touching" instead of "blocked"
       if (this.player.body.touching.down) {
-        this.player.body.velocity.x -= this.playerData.move*2;
+        this.game.physics.arcade.accelerateToXY(this.player, this.player.x, parseInt('-' + this.playerData.move), 0, 0)
       }
     } else {
       //when the ground is a sprite, we need to test for "touching" instead of "blocked"

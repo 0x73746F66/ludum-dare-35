@@ -35,7 +35,7 @@
   },
   "car":{
     "velocity": 250,
-    "pos": 70,
+    "pos": 120,
     "points": 5
   }
 }
