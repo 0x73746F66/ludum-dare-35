@@ -15,13 +15,14 @@
     "avoids": ["cat"]
   },
   "roo": {
+    "gravity": 5000,
     "multiplier": 3,
-    "jump": 550,
-    "move": 110,
+    "jump": 15  00,
+    "move": 150,
     "avoids": ["cat","fox"]
   },
   "obstacles":[
-    "cat","fox","fox","car","fox","cat","fox","car","fox","fox","cat","fox"
+    "cat","fox","fox","car","fox","cat","fox","car","cat","fox","cat","car"
   ],
   "cat":{
     "velocity": 30,

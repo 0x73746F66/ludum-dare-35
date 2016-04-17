@@ -79,7 +79,7 @@ SideScroller.Game.prototype = {
     this.foxs.filter(function(v) { return v.body.x < 0; }).callAll('destroy');
     this.cars.filter(function(v) { return v.body.x < 0; }).callAll('destroy');
 
-    if (this.player.body && this.player.body.touching.down) {
+    if (this.player.body.touching.down) {
       if (this.game.input.mousePointer.isDown) {
         this.game.physics.arcade.moveToXY(this.player, this.game.input.x, this.player.body.y, this.playerData.move);
         //  if it's overlapping the mouse, don't move any more
@@ -126,6 +126,13 @@ SideScroller.Game.prototype = {
       this.shapeShiftBun = false;
       this.player.destroy();
       this.createPlayer('bun');
+      this.cats.filter(function(v) { return true; }).callAll('destroy');
+      this.foxs.filter(function(v) { return true; }).callAll('destroy');
+      this.cars.filter(function(v) { return true; }).callAll('destroy');
+    }
+    if (!this.shapeShiftBun && this.points > 100) {
+      this.player.destroy();
+      this.createPlayer('roo');
       this.cats.filter(function(v) { return true; }).callAll('destroy');
       this.foxs.filter(function(v) { return true; }).callAll('destroy');
       this.cars.filter(function(v) { return true; }).callAll('destroy');
@@ -245,9 +252,9 @@ SideScroller.Game.prototype = {
     }
     if (obstacle.counted === false) {
       if (this.playerData.avoids.indexOf(obstacle.key) !== -1) {
-        this.points += obstacle.worth*this.playerData.multiplier;
+        this.points += (obstacle.worth*this.playerData.multiplier);
         if (this.playerInFront && obstacle.key !== 'car') {
-          this.points += (obstacle.worth*2)*this.playerData.multiplier;
+          this.points += ((obstacle.worth*2)*this.playerData.multiplier);
           obstacle.destroy();
           //@TODO handle obstacle defeated animation
         }
