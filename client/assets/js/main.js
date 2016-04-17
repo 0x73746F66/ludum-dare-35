@@ -19,16 +19,16 @@ document.addEventListener("DOMContentLoaded", function(e) {
   SideScroller.game.state.start('Boot');
 }, false);
 
-if (typeof Worker != 'undefined') {
-    var worker = new Worker('/assets/js/Worker.js');
-    worker.onerror = function(e) {
-        //document.getElementById('log').insertAdjacentHTML('beforeEnd','error encountered'+"\n"); 
-        error('Ops, something bad occurred!', e);
-    };
-    worker.onmessage = function(e) {
-        //document.getElementById('log').insertAdjacentHTML('beforeEnd', JSON.stringify(e.data)+"\n" ); 
-        debug(e.data);
-    };
+// if (typeof Worker != 'undefined') {
+//     var worker = new Worker('/assets/js/Worker.js');
+//     worker.onerror = function(e) {
+//         //document.getElementById('log').insertAdjacentHTML('beforeEnd','error encountered'+"\n"); 
+//         error('Ops, something bad occurred!', e);
+//     };
+//     worker.onmessage = function(e) {
+//         //document.getElementById('log').insertAdjacentHTML('beforeEnd', JSON.stringify(e.data)+"\n" ); 
+//         debug(e.data);
+//     };
     
-    worker.postMessage({start:true});
-}
+//     worker.postMessage({start:true});
+// }

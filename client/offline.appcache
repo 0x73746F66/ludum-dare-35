@@ -3,6 +3,7 @@ CACHE MANIFEST
 
 CACHE:
 index.html
+game_data.json
 assets/css/style.css
 assets/js/global.js
 assets/js/phaser.min.js
@@ -10,6 +11,8 @@ assets/js/Boot.js
 assets/js/Preload.js
 assets/js/Game.js
 assets/js/main.js
+assets/images/preloader-bar.png
+assets/launcher-icon-2x.png
 assets/images/mouse.png
 assets/images/bun.png
 assets/images/cat.png
@@ -17,7 +20,6 @@ assets/images/fox.png
 assets/images/car.png
 assets/images/grass.png
 assets/images/dirt.png
-
 
 NETWORK:
 *
