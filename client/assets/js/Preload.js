@@ -17,6 +17,7 @@ SideScroller.Preload.prototype = {
     this.load.image('fox', '/assets/images/fox.png');
     this.load.image('grass', '/assets/images/grass.png');
     this.load.image('dirt', '/assets/images/dirt.png');
+    this.load.image('button', '/assets/images/button.png');
   },
   create: function() {
     this.state.start('Game');

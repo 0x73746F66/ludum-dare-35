@@ -5,6 +5,7 @@ SideScroller.Game.prototype = {
     this.playerInFront = true;
     this.points = 0;
     this.shapeShiftBun = true;
+    this.gameOver = false;
   },
   create: function() {
     //create player from our game_data
@@ -63,6 +64,10 @@ SideScroller.Game.prototype = {
     this.playerInFront = true;
   }, 
   update: function() {
+    if (this.gameOver) {
+      return;
+    }
+
     this.game.world.bringToTop(this.cats);
     this.game.world.bringToTop(this.foxs);
     this.game.physics.arcade.collide(this.player, this.dirt, null, null, this);
@@ -74,25 +79,38 @@ SideScroller.Game.prototype = {
     this.foxs.filter(function(v) { return v.body.x < 0; }).callAll('destroy');
     this.cars.filter(function(v) { return v.body.x < 0; }).callAll('destroy');
 
-    this.player.body.velocity.x = 0;
-        
-    var swipeCoordX, swipeCoordY, swipeCoordX2, swipeCoordY2, swipeMinDistance = 100;
-    this.game.input.onDown.add(function(pointer) {
-      swipeCoordX = pointer.clientX;
-      swipeCoordY = pointer.clientY;
-    }, this);
-    var that = this;
-    this.game.input.onUp.add(function(pointer) {
-      swipeCoordX2 = pointer.clientX;
-      swipeCoordY2 = pointer.clientY;
-      if (swipeCoordX2 < swipeCoordX - swipeMinDistance) {
-        that.playerStrafeL();
-      } else if (swipeCoordX2 > swipeCoordX + swipeMinDistance) {
-        that.playerStrafeR(true);
-      } else if (swipeCoordY2 < swipeCoordY - swipeMinDistance) {
-        that.playerJump(true);
-      } else if (swipeCoordY2 > swipeCoordY + swipeMinDistance) {}
-    }, this);
+    if (this.player.body && this.player.body.touching.down) {
+      if (this.game.input.mousePointer.isDown) {
+        this.game.physics.arcade.moveToXY(this.player, this.game.input.x, this.player.body.y, this.playerData.move);
+        //  if it's overlapping the mouse, don't move any more
+        if (Phaser.Rectangle.contains(this.player.body, this.game.input.x, this.player.body.y)) {
+          this.player.body.velocity.setTo(0, 0);
+        }
+      } else {
+        this.player.body.velocity.setTo(0, 0);
+      }
+    } else {
+      this.player.body.velocity.x = 0;
+      var swipeCoordX, swipeCoordY, swipeCoordX2, swipeCoordY2, swipeMinDistance = 100;
+      this.game.input.onDown.add(function(pointer) {
+        swipeCoordX = pointer.clientX;
+        swipeCoordY = pointer.clientY;
+      }, this);
+      var that = this;
+      this.game.input.onUp.add(function(pointer) {
+        swipeCoordX2 = pointer.clientX;
+        swipeCoordY2 = pointer.clientY;
+        if (swipeCoordX2 < swipeCoordX - swipeMinDistance) {
+          //that.playerStrafeL();
+        } else if (swipeCoordX2 > swipeCoordX + swipeMinDistance) {
+          //that.playerStrafeR(true);
+        } else if (swipeCoordY2 < swipeCoordY - swipeMinDistance) {
+          that.playerJump();
+        } else if (swipeCoordY2 > swipeCoordY + swipeMinDistance) {
+          //down
+        }
+      }, this);
+    }
     
     if (this.cursors.up.isDown) {
       this.playerJump();
@@ -209,30 +227,14 @@ SideScroller.Game.prototype = {
       }
     }
   },
-  playerStrafeR: function(isTouch) {
-    if (isTouch) {
-      //when the ground is a sprite, we need to test for "touching" instead of "blocked"
-      if (this.player.body.touching.down) {
-        this.game.physics.arcade.accelerateToXY(this.player, this.player.x, this.playerData.move, 0, 0)
-      }
-    } else {
-      //when the ground is a sprite, we need to test for "touching" instead of "blocked"
-      if (this.player.body.touching.down) {
-        this.player.body.velocity.x = this.playerData.move;
-      }
-    } 
+  playerStrafeR: function() {
+    if (this.player.body.touching.down) {
+      this.player.body.velocity.x = this.playerData.move;
+    }
   },
-  playerStrafeL: function(isTouch) {
-    if (isTouch) {
-      //when the ground is a sprite, we need to test for "touching" instead of "blocked"
-      if (this.player.body.touching.down) {
-        this.game.physics.arcade.accelerateToXY(this.player, this.player.x, parseInt('-' + this.playerData.move), 0, 0)
-      }
-    } else {
-      //when the ground is a sprite, we need to test for "touching" instead of "blocked"
-      if (this.player.body.touching.down) {
-        this.player.body.velocity.x = parseInt('-' + this.playerData.move);
-      }
+  playerStrafeL: function() {
+    if (this.player.body.touching.down) {
+      this.player.body.velocity.x = parseInt('-' + this.playerData.move);
     }
   },
   playerHit: function(player, obstacle) {
@@ -258,20 +260,16 @@ SideScroller.Game.prototype = {
           this.points += obstacle.worth*this.playerData.multiplier;
           this.refreshStats();
         } else if (this.playerInFront && obstacle.key !== 'car') {
-          debug(player.key + ' killed by ' + obstacle.key + "\t Points: " + this.points);
-          this.game.state.destroy();
+          this.playerDied(player.key + ' killed by ' + obstacle.key);
         } else if (!this.playerInFront && obstacle.key === 'car') {
-          debug(player.key + ' killed by ' + obstacle.key + "\t Points: " + this.points);
-          this.game.state.destroy();
+          this.playerDied(player.key + ' killed by ' + obstacle.key);
         }
       }
     } else if (this.playerData.avoids.indexOf(obstacle.key) === -1) {
       if (this.playerInFront && obstacle.key !== 'car') {
-        debug(player.key + ' killed by ' + obstacle.key + "\t Points: " + this.points);
-        this.game.state.destroy();
+        this.playerDied(player.key + ' killed by ' + obstacle.key);
       } else if (!this.playerInFront && obstacle.key === 'car') {
-        debug(player.key + ' killed by ' + obstacle.key + "\t Points: " + this.points);
-        this.game.state.destroy();
+        this.playerDied(player.key + ' killed by ' + obstacle.key);
       }
     }
     
@@ -280,6 +278,37 @@ SideScroller.Game.prototype = {
   refreshStats: function() {
     this.pointsText.text = this.points;
     //this.timeText.text = this.maxScratches - this.scratches;
+  },
+  playerDied: function(txt) {
+    this.gameOver = true;
+    var bestScore = parseInt(window.store('bestScore')||0);
+    if (this.score > bestScore) {
+      bestScore = this.score;
+      window.store('bestScore', bestScore);
+    }
+    this.gameOverLabel = this.game.add.text(this.game.width / 2 , this.game.height / 2, txt + "\n Your Score: " + this.points + "\nBest Score: " + bestScore,
+      { font: '24px Lucida Console', fill: '#fff', align: 'center'});
+    this.gameOverLabel.anchor.setTo(0.5, 0.5);
+    this.game.stage.backgroundColor = '#182d3b';
+    this.restartButton = this.game.add.button(this.game.world.centerX - 95, this.game.world.centerY - 150, 'button', this.restart, this);
+    this.restartButton.onInputUp.add(this.restart, this);
+  },
+  restart: function() {
+    this.gameOverLabel.destroy();
+    this.restartButton.destroy();
+    this.points = 0;
+    this.refreshStats();
+    this.shapeShiftBun = true;
+    this.player.destroy();
+    this.cats.filter(function(v) { return true; }).callAll('destroy');
+    this.foxs.filter(function(v) { return true; }).callAll('destroy');
+    this.cars.filter(function(v) { return true; }).callAll('destroy');
+    this.game.stage.backgroundColor = '#5555ff';
+    this.gameOver = false;
+    this.generateObstacles();
+    this.game.world.bringToTop(this.grass);
+    this.game.world.bringToTop(this.dirt);
+    this.createPlayer('mouse');
   },
   togglePause: function() {
     this.game.physics.arcade.isPaused = (this.game.physics.arcade.isPaused) ? false : true;

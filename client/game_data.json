@@ -25,17 +25,17 @@
   ],
   "cat":{
     "velocity": 30,
-    "pos": 80,
+    "pos": 70,
     "points": 2
   },
   "fox":{
     "velocity": 80,
-    "pos": 100,
+    "pos": 95,
     "points": 1
   },
   "car":{
     "velocity": 250,
-    "pos": 120,
+    "pos": 140,
     "points": 5
   }
 }

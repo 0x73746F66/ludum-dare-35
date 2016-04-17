@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# v0.0.3  //change this value to force a browser update
+# v0.0.4 //change this value to force a browser update
 
 CACHE:
 index.html
@@ -20,6 +20,7 @@ assets/images/fox.png
 assets/images/car.png
 assets/images/grass.png
 assets/images/dirt.png
+assets/images/button.png
 
 NETWORK:
 *
