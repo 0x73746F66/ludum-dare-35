@@ -15,9 +15,9 @@
     "avoids": ["cat"]
   },
   "roo": {
-    "gravity": 5000,
+    "gravity": 3000,
     "multiplier": 3,
-    "jump": 1500,
+    "jump": 1000,
     "move": 150,
     "avoids": ["cat","fox"]
   },

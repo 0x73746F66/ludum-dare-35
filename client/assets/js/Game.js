@@ -51,7 +51,7 @@ SideScroller.Game.prototype = {
   }, 
   createPlayer: function(playerId) {
     this.playerData = this.cache.getJSON('game_data')[playerId];
-    this.player = this.game.add.sprite(10, this.game.height-50, playerId);
+    this.player = this.game.add.sprite(30, this.game.height-50, playerId);
     //enable physics on the player
     this.game.physics.arcade.enable(this.player);
     //the camera will follow the player in the world
@@ -75,9 +75,9 @@ SideScroller.Game.prototype = {
     this.game.physics.arcade.overlap(this.player, this.foxs, this.playerHit, null, this);
     this.game.physics.arcade.overlap(this.player, this.cars, this.playerHit, null, this);
 
-    this.cats.filter(function(v) { return v.body.x < 0; }).callAll('destroy');
-    this.foxs.filter(function(v) { return v.body.x < 0; }).callAll('destroy');
-    this.cars.filter(function(v) { return v.body.x < 0; }).callAll('destroy');
+    this.cats.filter(function(v) { return v.body.x < -100; }).callAll('destroy');
+    this.foxs.filter(function(v) { return v.body.x < -120; }).callAll('destroy');
+    this.cars.filter(function(v) { return v.body.x < -200; }).callAll('destroy');
 
     if (this.player.body.touching.down) {
       if (this.game.input.mousePointer.isDown) {
