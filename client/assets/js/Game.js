@@ -51,7 +51,9 @@ SideScroller.Game.prototype = {
   }, 
   createPlayer: function(playerId) {
     var x = 30, y = this.game.height-50;
-    if (typeof this.player !== 'undefined'){
+    if (this.gameOver) {
+      this.player.destroy();
+    } else if (typeof this.player !== 'undefined'){
       x = this.player.body.x || this.game.height-50;
       y = this.player.body.y || 30;
       this.player.destroy();
@@ -310,16 +312,15 @@ SideScroller.Game.prototype = {
     this.points = 0;
     this.refreshStats();
     this.shapeShiftBun = true;
-    this.player.destroy();
     this.cats.filter(function(v) { return true; }).callAll('destroy');
     this.foxs.filter(function(v) { return true; }).callAll('destroy');
     this.cars.filter(function(v) { return true; }).callAll('destroy');
     this.game.stage.backgroundColor = '#5555ff';
-    this.gameOver = false;
     this.generateObstacles();
     this.game.world.bringToTop(this.grass);
     this.game.world.bringToTop(this.dirt);
     this.createPlayer('mouse');
+    this.gameOver = false;
   },
   togglePause: function() {
     this.game.physics.arcade.isPaused = (this.game.physics.arcade.isPaused) ? false : true;
