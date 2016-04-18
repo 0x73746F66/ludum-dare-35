@@ -20,6 +20,12 @@ SideScroller.Preload.prototype = {
     this.load.image('button', '/assets/images/button.png');
   },
   create: function() {
-    this.state.start('Game');
+    var that = this,
+        cahceCheck = setInterval(function(){
+          if (SideScroller.cacheReady === true) {
+            clearInterval(cahceCheck);
+            that.state.start('Game');
+          }
+        }, 200);
   }
 };
