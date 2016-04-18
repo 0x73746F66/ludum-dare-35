@@ -240,7 +240,7 @@ SideScroller.Game.prototype = {
     }
   },
   playerStrafeL: function() {
-    if (this.player.body.touching.down) {
+    if (this.player.body.x > 0 && this.player.body.touching.down) {
       this.player.body.velocity.x = parseInt('-' + this.playerData.move);
     }
   },
