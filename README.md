@@ -29,3 +29,15 @@ Works 100% Offline; after initial download.
 My game is best played responsively on Chrome in landscape with keyboard arrow keys (L R U), but i've got the touch/swipe working on several android phones (all i have sorry iPhone owners) but my latest phone (HTC One M8) fails to follow your finger :( more time needed! 
 
 Note for Android users: save to Homescreen first, then launch and play for best full screen experience.
+
+### Run it yourself
+
+If you're keen to run it yourself, ensure you're node and npm engines match the package.json and simply run:
+
+`npm install`
+
+and 
+
+`npm start`
+
+Then visit the url output in the terminal window (including the port number).
