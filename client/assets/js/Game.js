@@ -50,8 +50,14 @@ SideScroller.Game.prototype = {
     //this.timeText.fixedToCamera = true;
   }, 
   createPlayer: function(playerId) {
+    var x = 30, y = this.game.height-50;
+    if (typeof this.player !== 'undefined'){
+      x = this.player.body.x || this.game.height-50;
+      y = this.player.body.y || 30;
+      this.player.destroy();
+    }
     this.playerData = this.cache.getJSON('game_data')[playerId];
-    this.player = this.game.add.sprite(30, this.game.height-50, playerId);
+    this.player = this.game.add.sprite(x, y, playerId);
     //enable physics on the player
     this.game.physics.arcade.enable(this.player);
     //the camera will follow the player in the world
@@ -124,21 +130,19 @@ SideScroller.Game.prototype = {
     
     if (this.shapeShiftBun && this.points > 10) {
       this.shapeShiftBun = false;
-      this.player.destroy();
       this.createPlayer('bun');
       this.cats.filter(function(v) { return true; }).callAll('destroy');
       this.foxs.filter(function(v) { return true; }).callAll('destroy');
       this.cars.filter(function(v) { return true; }).callAll('destroy');
     }
     if (!this.shapeShiftBun && this.points > 100) {
-      this.player.destroy();
       this.createPlayer('roo');
       this.cats.filter(function(v) { return true; }).callAll('destroy');
       this.foxs.filter(function(v) { return true; }).callAll('destroy');
       this.cars.filter(function(v) { return true; }).callAll('destroy');
     }
     
-    if (this.game.rnd.integerInRange(0, 1000) >= 990) {
+    if (this.game.rnd.integerInRange(0, 1000) >= 995) {
       var key = this.cache.getJSON('game_data').obstacles[this.game.rnd.integerInRange(0, this.cache.getJSON('game_data').obstacles.length-1)]
       var data = this.cache.getJSON('game_data')[key];
       var x = (this.game.width) + this.game.rnd.integerInRange(0, this.game.width*2);
@@ -186,7 +190,7 @@ SideScroller.Game.prototype = {
     for (i = 0; i < numFoxs; i++) {
       //add sprite within an area excluding the beginning and ending
       //  of the game world so items won't suddenly appear or disappear when wrapping
-      x = (this.game.width/2) + this.game.rnd.integerInRange(0, this.game.width*3);
+      x = (this.game.width/2) + this.game.rnd.integerInRange(0, this.game.width*2);
       fox = this.foxs.create(x, this.game.height-foxData.pos, 'fox');
  
       //physics properties
