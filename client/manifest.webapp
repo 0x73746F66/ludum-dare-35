@@ -1,15 +1,15 @@
 {
   "version": "1.0.0",
-  "name": "Ludum Dare 35 - Christopher Langton",
+  "name": "Mouse Bun Roo",
   "launch_path": "/index.html",
-  "description": "Ludum Dare Game Jam by Chris Langton.",
+  "description": "Ludum Dare 35 Game Jam",
   "icons": {
 //    "60": "/img/touch/touch-icon-60x60.png",
 //    "128": "/img/touch/touch-icon-128x128.png"
   },
   "developer": {
     "name": "Chris Langton",
-    "url": "https://chrisdlangton.ghost.io/"
+    "url": "https://gitlab.com/chrislangton/"
   },
   "installs_allowed_from": [
     "*"
@@ -19,7 +19,7 @@
   },
   "locales": {
     "en": {
-      "name": "Ludum Dare 35 - Christopher Langton",
+      "name": "Mouse Bun Roo - Ludum Dare 35",
       "description": "Ludum Dare Game Jam by Chris Langton.",
     }
   }

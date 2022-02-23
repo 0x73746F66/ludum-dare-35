@@ -1,10 +1,10 @@
 {
-  "short_name": "#ldgj @chrisdlangton",
+  "short_name": "Mouse Bun Roo",
   "name": "Ludum Dare 35 - Christopher Langton | #ldgj @chrisdlangton",
   "icons": [
     {
-      "src": "assets/launcher-icon-2x.png",
-      "sizes": "192x192",
+      "src": "assets/images/bun.png",
+      "sizes": "50x63",
       "type": "image/png"
     }
   ],

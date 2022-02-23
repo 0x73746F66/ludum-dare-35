@@ -1,21 +1,21 @@
 {
-  "name" : "LudumDare35",
-  "version"     : "0.0.1",
-  "description" : "based of my Node.js Cluster sample framework",
-  "author"      : "Christopher Langton",
+  "name": "MouseBunRoo",
+  "version": "0.0.10",
+  "description": "Solo compo entry for Ludum Dare 35 April 2016",
+  "author": "Christopher Langton",
   "scripts": {
     "start": "supervisor server.js"
   },
   "main": "server.js",
-  "repository"  : {
-    "type" : "git",
-    "url"  : "https://github.com/chrisdlangton/LudumDare35.git"
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/chrislangton/ludum-dare-35.git"
   },
   "engines": {
     "node": "0.12.9",
     "npm": "2.14.9"
   },
   "dependencies": {
-    "supervisor"         : "*" 
+    "supervisor": "*"
   }
 }

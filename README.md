@@ -1,6 +1,6 @@
-# LudumDare35
+# Mouse Bun Roo
 
-### MouseBunRoo
+### LudumDare35
 
 ![screenshot](.repo/bun-hiding.jpg)
 
